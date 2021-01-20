@@ -3,6 +3,9 @@ package stringcalc;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 public class StringCalculatorTest {
 
@@ -52,10 +55,32 @@ public class StringCalculatorTest {
     }
 	
     @Test
-    public void negativeInputReturnsException() {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Negative input!");
-        calculator.add("-1");
-        calculator.add("-5,10\n-15");
-    }	
+    public void testNegativeNumver(){
+    	try {
+			Calculator.add("-1,2");
+		}
+		catch (IllegalArgumentException e){
+			assertEquals(e.getMessage(), "Negatives not allowed: -1");
+		}
+
+		try {
+			Calculator.add("2,-4,3,-5");
+		}
+		catch (IllegalArgumentException e){
+			assertEquals(e.getMessage(), "Negatives not allowed: -4,-5");
+		}
+    }
+   
+    @Test
+    public void numbersGreaterThan1000AreIgnored() {
+        assertEquals(calculator.add("5,12,1001"), 17);
+        assertEquals(calculator.add("14124,22\n4,1214"), 26);
+    }
+   
+    @Test
+    public void testOtherDelimiter(){
+    	assertEquals(3, calculator.add("//;\n1;2"));
+    }
+	
+	
 }
