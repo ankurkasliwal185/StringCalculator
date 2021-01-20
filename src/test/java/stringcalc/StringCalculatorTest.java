@@ -57,14 +57,14 @@ public class StringCalculatorTest {
     @Test
     public void testNegativeNumver(){
     	try {
-			Calculator.add("-1,2");
+			calculator.add("-1,2");
 		}
 		catch (IllegalArgumentException e){
 			assertEquals(e.getMessage(), "Negatives not allowed: -1");
 		}
 
 		try {
-			Calculator.add("2,-4,3,-5");
+			calculator.add("2,-4,3,-5");
 		}
 		catch (IllegalArgumentException e){
 			assertEquals(e.getMessage(), "Negatives not allowed: -4,-5");
